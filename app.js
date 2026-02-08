@@ -41,10 +41,10 @@ window.initMap = async function initMap() {
 
   // 4) Cluster bubbles
   // Uses official library (no build tool needed)
-const mod = await import("https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js");
-const MarkerClusterer = mod.MarkerClusterer || mod.default?.MarkerClusterer || mod.default;
-
-new MarkerClusterer({ map, markers: markerObjects });
+const clusterer = new markerClusterer.MarkerClusterer({
+  map,
+  markers: markerObjects
+});
 
   // 5) Search UI
   setupSearch();
