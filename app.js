@@ -27,8 +27,7 @@ window.initMap = async function initMap() {
     const marker = new google.maps.Marker({
       position: { lat: m.lat, lng: m.lng },
       title: m.name,
-      // optional: custom icon
-      // icon: "./assets/marker.svg",
+       icon: "./assets/marker.svg",
     });
 
     marker.addListener("click", () => {
