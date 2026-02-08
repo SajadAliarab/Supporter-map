@@ -7,19 +7,28 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <div class="ui">
-    <div class="search">
-      <input id="search" type="search" placeholder="Search for a club..." />
-      <button id="clear" aria-label="Clear">✕</button>
-    </div>
+  <div class="ui sheet" id="sheet">
+    <!-- Mobile collapsed bar -->
+    <button class="sheet-handle" id="sheetToggle" aria-label="Search clubs">
+      <span class="sheet-handle__pill" aria-hidden="true"></span>
+      <span class="sheet-handle__text">Search clubs</span>
+    </button>
 
-    <div class="cta">
-      <span>Can’t find a club? Start one!</span>
-      <a class="btn" id="formClub" href="#" target="_blank" rel="noreferrer">FORM A CLUB</a>
-    </div>
+    <!-- Panel content -->
+    <div class="sheet-body" id="sheetBody">
+      <div class="search">
+        <input id="search" type="search" placeholder="Search for a club..." autocomplete="off" />
+        <button id="clear" aria-label="Clear search">✕</button>
+      </div>
 
-    <div id="results" class="results"></div>
-  </div>
+      <div class="cta">
+        <span>Can’t find a club? Start one!</span>
+        <!-- Set your real URL in app.js (FORM_CLUB_URL) -->
+        <a class="btn" id="formClub" href="#" target="_blank" rel="noreferrer">FORM A CLUB</a>
+      </div>
+
+      <div id="results" class="results" role="list"></div>
+    </div>
 
   <div id="map"></div>
 

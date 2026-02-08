@@ -47,7 +47,9 @@ const clusterer = new markerClusterer.MarkerClusterer({
 
   // 5) Search UI
   setupSearch();
+  setupMobileSheet();
   renderResults(markers);
+
 };
 
 function makeInfoHtml(m) {
@@ -91,6 +93,27 @@ function setupSearch() {
   // Set this to your real “Form a Club” page later:
   document.getElementById("formClub").href = "https://www.lcfc.com/";
 }
+function setupMobileSheet() {
+  const sheet = document.getElementById("sheet");
+  const toggle = document.getElementById("sheetToggle");
+  const input = document.getElementById("search");
+
+  if (!sheet || !toggle || !input) return;
+
+  toggle.addEventListener("click", () => {
+    sheet.classList.toggle("is-open");
+    if (sheet.classList.contains("is-open")) {
+      setTimeout(() => input.focus(), 50);
+    }
+  });
+
+  // Close sheet when tapping outside (mobile only)
+  document.addEventListener("click", (e) => {
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (!isMobile) return;
+    if (!sheet.contains(e.target)) sheet.classList.remove("is-open");
+  });
+}
 
 function renderResults(list) {
   const el = document.getElementById("results");
@@ -108,6 +131,9 @@ function renderResults(list) {
       map.panTo(pos);
       map.setZoom(Math.max(map.getZoom(), 6));
     });
+    if (window.matchMedia("(max-width: 768px)").matches) {
+    document.getElementById("sheet")?.classList.remove("is-open");
+  }
     el.appendChild(row);
   });
 }
