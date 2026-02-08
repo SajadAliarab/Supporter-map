@@ -10,7 +10,7 @@ window.initMap = async function initMap() {
     zoom: 2,
     minZoom: 2,
     maxZoom: 14,
-    mapId: "3a8b4b95db8f3c2aa7c69eb4",
+    mapId: "168cc691236d2baa54e54b85",
     streetViewControl: false,
     mapTypeControl: false,
     fullscreenControl: true,
