@@ -73,3 +73,15 @@ html, body { height: 100%; margin: 0; }
 .result:hover{ background:#f8f8f8; }
 .result .name{ font-weight: 800; color:#0b1b4c; }
 .result .meta{ font-size: 13px; opacity:.75; margin-top:4px; }
+/* Mobile behaviour */
+@media (max-width: 768px) {
+  .results {
+    display: none;
+  }
+
+  .ui {
+    width: calc(100vw - 32px);
+    right: 16px;
+    left: 16px;
+  }
+}
