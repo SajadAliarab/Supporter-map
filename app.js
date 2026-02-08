@@ -126,14 +126,18 @@ function renderResults(list) {
       <div class="name">${escapeHtml(m.name)}</div>
       <div class="meta">${escapeHtml(m.group || "")}</div>
     `;
+
     row.addEventListener("click", () => {
       const pos = { lat: m.lat, lng: m.lng };
       map.panTo(pos);
       map.setZoom(Math.max(map.getZoom(), 6));
+
+      // close sheet only after selection on mobile
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.getElementById("sheet")?.classList.remove("is-open");
+      }
     });
-    if (window.matchMedia("(max-width: 768px)").matches) {
-    document.getElementById("sheet")?.classList.remove("is-open");
-  }
+
     el.appendChild(row);
   });
 }

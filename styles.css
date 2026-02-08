@@ -86,7 +86,7 @@ body { overflow: hidden; font-family: system-ui, -apple-system, Segoe UI, Roboto
 .result:last-child{ border-bottom: 0; }
 .result:hover{ background:#f8f8f8; }
 .result .name{ font-weight: 900; color: var(--lcfc-navy); }
-.result .meta{ font-size: 13px; opacity:.75; margin-top:4px; }
+.result .meta{ font-size: 16px; opacity:.75; margin-top:4px; }
 
 /* Bottom-sheet pieces */
 .sheet-handle { display: none; } /* visible on mobile */

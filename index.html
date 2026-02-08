@@ -4,7 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>LCFC Supporter Groups Map</title>
-  <link rel="stylesheet" href="./styles.css" />
+
+  <!-- Cache busting: bump v when you deploy -->
+  <link rel="stylesheet" href="./styles.css?v=1" />
 </head>
 <body>
   <div class="ui sheet" id="sheet">
@@ -23,23 +25,25 @@
 
       <div class="cta">
         <span>Can’t find a club? Start one!</span>
-        <!-- Set your real URL in app.js (FORM_CLUB_URL) -->
         <a class="btn" id="formClub" href="#" target="_blank" rel="noreferrer">FORM A CLUB</a>
       </div>
 
       <div id="results" class="results" role="list"></div>
     </div>
+  </div>
 
   <div id="map"></div>
 
+  <!-- Clusterer (global) -->
   <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
 
-
-  <script src="./app.js" type="module"></script>
+  <!-- Your app (NOT module) + cache busting -->
+  <script src="./app.js?v=1"></script>
 
   <!-- Google Maps -->
   <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDhkTnDunv3OHDvaTgiawkWiIh58_Wz0E&callback=initMap"
-    async defer></script>
+    async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDhkTnDunv3OHDvaTgiawkWiIh58_Wz0E&callback=initMap&loading=async">
+  </script>
 </body>
 </html>
