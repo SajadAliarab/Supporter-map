@@ -75,6 +75,7 @@ html, body { height: 100%; margin: 0; }
 .result .meta{ font-size: 13px; opacity:.75; margin-top:4px; }
 /* Mobile behaviour */
 @media (max-width: 768px) {
+  .search,
   .results {
     display: none;
   }
