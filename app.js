@@ -3,26 +3,17 @@ let infoWindow;
 let markers = [];
 let markerObjects = [];
 
-function isEmbedded() {
-  // Prefer URL flag (most reliable)
-  if (new URLSearchParams(window.location.search).get("embed") === "1") return true;
+(function applyEmbedMode() {
+  const params = new URLSearchParams(window.location.search);
+  const embedParam = params.get("embed") === "1";
 
-  // Fallback: iframe detection
-  try {
-    return window.self !== window.top;
-  } catch (e) {
-    // Cross-origin can throw; treat as embedded
-    return true;
+  let inIframe = false;
+  try { inIframe = window.self !== window.top; } catch (e) { inIframe = true; }
+
+  if (embedParam || inIframe) {
+    document.body.classList.add("is-embedded");
   }
-}
-
-function applyEmbedMode() {
-  if (!isEmbedded()) return;
-  document.body.classList.add("is-embedded");
-}
-
-applyEmbedMode();
-
+})();
 window.initMap = async function initMap() {
   // 1) Create the map
   map = new google.maps.Map(document.getElementById("map"), {

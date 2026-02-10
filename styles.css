@@ -176,28 +176,9 @@ body.is-embedded .results {
   display: none;
 }
 /* Embedded desktop: right-side drawer */
-@media (min-width: 769px) {
-  body.is-embedded .ui {
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 360px;
-    max-width: 360px;
-    padding: 16px;
-    box-sizing: border-box;
-  }
-
-  body.is-embedded .search,
-  body.is-embedded .cta {
-    box-shadow: none;
-  }
-
-  body.is-embedded .sheet-body {
-    display: block;
-  }
-}
 @media (max-width: 768px) {
-  body.is-embedded .sheet-body {
+  body.is-embedded .sheet-handle,
+  body.is-embedded .search,
+  body.is-embedded .results {
     display: none !important;
   }
-}
