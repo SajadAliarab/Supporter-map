@@ -172,13 +172,11 @@ body { overflow: hidden; font-family: system-ui, -apple-system, Segoe UI, Roboto
 input {
   -webkit-text-size-adjust: 100%;
 }
-body.is-embedded .results {
-  display: none;
-}
-/* Embedded desktop: right-side drawer */
+
 @media (max-width: 768px) {
   body.is-embedded .sheet-handle,
   body.is-embedded .search,
   body.is-embedded .results {
     display: none !important;
   }
+}
