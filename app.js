@@ -96,17 +96,6 @@ const clusterer = new markerClusterer.MarkerClusterer({
   }
 });
 
-      return new google.maps.Marker({
-        position,
-        icon: {
-          url: `data:image/svg+xml;base64,${svg}`,
-          scaledSize: new google.maps.Size(50, 50)
-        },
-        zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count
-      });
-    }
-  }
-});
 
   // 5) Search UI
   setupSearch();
