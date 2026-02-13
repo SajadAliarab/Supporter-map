@@ -55,15 +55,26 @@ const clusterer = new markerClusterer.MarkerClusterer({
   markers: markerObjects,
   renderer: {
     render({ count, position }) {
+
       const svg = window.btoa(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60">
-          <circle cx="30" cy="30" r="28"
+        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+          <defs>
+            <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="3" stdDeviation="4"
+                flood-color="#000000"
+                flood-opacity="0.25"/>
+            </filter>
+          </defs>
+
+          <circle cx="30" cy="30" r="26"
             fill="#FDFDFD"
             stroke="#164194"
-            stroke-width="3"/>
+            stroke-width="3"
+            filter="url(#shadow)"/>
+
           <text x="50%" y="50%"
             text-anchor="middle"
-            dy=".3em"
+            dy=".35em"
             font-size="18"
             font-weight="700"
             fill="#164194"
@@ -72,6 +83,18 @@ const clusterer = new markerClusterer.MarkerClusterer({
           </text>
         </svg>
       `);
+
+      return new google.maps.Marker({
+        position,
+        icon: {
+          url: `data:image/svg+xml;base64,${svg}`,
+          scaledSize: new google.maps.Size(50, 50)
+        },
+        zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count
+      });
+    }
+  }
+});
 
       return new google.maps.Marker({
         position,
