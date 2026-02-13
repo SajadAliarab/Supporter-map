@@ -54,46 +54,73 @@ const clusterer = new markerClusterer.MarkerClusterer({
   map,
   markers: markerObjects,
   renderer: {
-    render({ count, position }) {
+  render({ count, position }) {
+    // Bubble sizing similar to Google's default cluster bubbles
+    const size =
+      count < 10 ? 44 :
+      count < 100 ? 52 :
+      60;
 
-      const svg = window.btoa(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
-          <defs>
-            <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-              <feDropShadow dx="0" dy="3" stdDeviation="4"
-                flood-color="#000000"
-                flood-opacity="0.25"/>
-            </filter>
-          </defs>
+    const fontSize =
+      count < 10 ? 16 :
+      count < 100 ? 16 :
+      15;
 
-          <circle cx="30" cy="30" r="26"
-            fill="#FDFDFD"
-            stroke="#164194"
-            stroke-width="3"
-            filter="url(#shadow)"/>
+    const stroke = "#164194";      // border + ring
+    const fill = "#FDFDFD";        // main background
+    const text = "#164194";        // number
 
-          <text x="50%" y="50%"
-            text-anchor="middle"
-            dy=".35em"
-            font-size="18"
-            font-weight="700"
-            fill="#164194"
-            font-family="Arial, sans-serif">
-            ${count}
-          </text>
-        </svg>
-      `);
+    const rOuter = Math.floor(size / 2) - 2;   // outer radius
+    const rInner = Math.floor(size / 2) - 6;   // inner radius
 
-      return new google.maps.Marker({
-        position,
-        icon: {
-          url: `data:image/svg+xml;base64,${svg}`,
-          scaledSize: new google.maps.Size(50, 50)
-        },
-        zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count
-      });
-    }
+    const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+        <defs>
+          <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.22"/>
+          </filter>
+          <radialGradient id="haloGrad" cx="35%" cy="35%">
+           <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+            <stop offset="100%" stop-color="${fill}" stop-opacity="0.85"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Outer soft halo (gives 'bubble' feel) -->
+        <circle cx="${size/2}" cy="${size/2}" r="${rOuter}"
+          fill="${fill}" opacity="0.85" filter="url(#shadow)"/>
+
+        <!-- Inner solid circle -->
+        <circle cx="${size/2}" cy="${size/2}" r="${rInner}"
+          fill="${fill}" stroke="${stroke}" stroke-width="3"/>
+
+        <!-- Number -->
+        <text x="50%" y="50%"
+          text-anchor="middle"
+          dominant-baseline="central"
+          font-size="${fontSize}"
+          font-weight="800"
+          fill="${text}"
+          font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif">
+          ${count}
+        </text>
+      </svg>
+    `;
+
+    // IMPORTANT: use encodeURIComponent (better than btoa for SVG text)
+    const url = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+
+    return new google.maps.Marker({
+      position,
+      icon: {
+        url,
+        scaledSize: new google.maps.Size(size, size),
+        anchor: new google.maps.Point(size / 2, size / 2),
+      },
+      zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count
+    });
   }
+}
+
 });
 
 
