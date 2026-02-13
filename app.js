@@ -50,10 +50,31 @@ window.initMap = async function initMap() {
   });
 
   // 4) Cluster bubbles
-  // Uses official library (no build tool needed)
 const clusterer = new markerClusterer.MarkerClusterer({
   map,
-  markers: markerObjects
+  markers: markerObjects,
+  renderer: {
+    render({ count, position }) {
+      return new google.maps.Marker({
+        position,
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          fillColor: "#FDFDFD",        
+          fillOpacity: 1,
+          strokeColor: "#164194",      
+          strokeWeight: 2,
+          scale: Math.max(30, count * 2)  
+        },
+        label: {
+          text: String(count),
+          color: "#164194",            
+          fontSize: "14px",
+          fontWeight: "700"
+        },
+        zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count
+      });
+    }
+  }
 });
 
   // 5) Search UI
