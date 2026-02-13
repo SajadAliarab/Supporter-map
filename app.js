@@ -55,21 +55,29 @@ const clusterer = new markerClusterer.MarkerClusterer({
   markers: markerObjects,
   renderer: {
     render({ count, position }) {
+      const svg = window.btoa(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60">
+          <circle cx="30" cy="30" r="28"
+            fill="#FDFDFD"
+            stroke="#164194"
+            stroke-width="3"/>
+          <text x="50%" y="50%"
+            text-anchor="middle"
+            dy=".3em"
+            font-size="18"
+            font-weight="700"
+            fill="#164194"
+            font-family="Arial, sans-serif">
+            ${count}
+          </text>
+        </svg>
+      `);
+
       return new google.maps.Marker({
         position,
         icon: {
-          path: google.maps.SymbolPath.CIRCLE,
-          fillColor: "#FDFDFD",        
-          fillOpacity: 1,
-          strokeColor: "#164194",      
-          strokeWeight: 2,
-          scale: Math.max(30, count * 2)  
-        },
-        label: {
-          text: String(count),
-          color: "#164194",            
-          fontSize: "14px",
-          fontWeight: "700"
+          url: `data:image/svg+xml;base64,${svg}`,
+          scaledSize: new google.maps.Size(50, 50)
         },
         zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count
       });
