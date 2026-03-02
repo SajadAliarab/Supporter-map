@@ -70,7 +70,7 @@ body { overflow: hidden; font-family: system-ui, -apple-system, Segoe UI, Roboto
 /* Results list */
 .results{
   margin-top: 10px;
-  max-height: 50vh;
+  max-height: 40vh;
   overflow:auto;
   background:#fff;
   border-radius: 10px;
