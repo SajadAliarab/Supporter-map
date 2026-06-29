@@ -133,14 +133,14 @@ const clusterer = new markerClusterer.MarkerClusterer({
 
 function makeInfoHtml(m) {
   const btn = m.link
-    ? `<div style="margin-top:10px"><a href="${escapeAttr(m.link)}" target="_blank" rel="noreferrer"
+    ? `<div style="padding: 0 16px 16px;"><a href="${escapeAttr(m.link)}" target="_blank" rel="noreferrer"
          style="display:inline-block;background:#f6e300;color:#0b1b4c;font-weight:800;text-decoration:none;
          padding:10px 12px;border-radius:6px">Find out more</a></div>`
     : "";
 
   return `
-    <div style="max-width:320px">
-      <div style="margin-top:1px; background-color: #F4F5F6; font-size:14px;line-height:1.4">${m.notesHtml || ""}</div>
+    <div style="max-width:320px; background-color:#F4F5F6; margin:-12px; overflow:hidden;">
+      <div style="font-size:14px;line-height:1.4">${m.notesHtml || ""}</div>
       ${btn}
     </div>
   `;
