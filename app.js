@@ -140,7 +140,6 @@ function makeInfoHtml(m) {
 
   return `
     <div style="max-width:320px">
-      <div style="font-weight:900;color:#0b1b4c;font-size:16px">${escapeHtml(m.name)}</div>
       <div style="margin-top:8px;font-size:14px;line-height:1.4">${m.notesHtml || ""}</div>
       ${btn}
     </div>
