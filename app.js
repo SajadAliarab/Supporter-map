@@ -206,15 +206,22 @@ function renderResults(list) {
     `;
 
     row.addEventListener("click", () => {
-      const pos = { lat: m.lat, lng: m.lng };
-      map.panTo(pos);
-      map.setZoom(Math.max(map.getZoom(), 6));
+  const pos = { lat: m.lat, lng: m.lng };
+  map.panTo(pos);
+  map.setZoom(Math.max(map.getZoom(), 6));
 
-      // close sheet only after selection on mobile
-      if (window.matchMedia("(max-width: 768px)").matches) {
-        document.getElementById("sheet")?.classList.remove("is-open");
-      }
-    });
+  // Find the matching marker object and open its InfoWindow
+  const index = markers.indexOf(m);
+  if (index !== -1) {
+    infoWindow.setContent(makeInfoHtml(m));
+    infoWindow.open(map, markerObjects[index]);
+  }
+
+  // close sheet only after selection on mobile
+  if (window.matchMedia("(max-width: 768px)").matches) {
+    document.getElementById("sheet")?.classList.remove("is-open");
+  }
+});
 
     el.appendChild(row);
   });
