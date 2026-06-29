@@ -140,7 +140,7 @@ function makeInfoHtml(m) {
 
   return `
     <div style="max-width:320px">
-      <div style="margin-top:8px;font-size:14px;line-height:1.4">${m.notesHtml || ""}</div>
+      <div style="margin-top:1px; background-color: #F4F5F6; font-size:14px;line-height:1.4">${m.notesHtml || ""}</div>
       ${btn}
     </div>
   `;
