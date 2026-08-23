@@ -3,7 +3,7 @@ let infoWindow;
 let markers = [];
 let markerObjects = [];
 
-const DETAIL_ZOOM = 16; // fixed zoom used to break out of any cluster on select
+const DETAIL_ZOOM = 11; // fixed zoom used to break out of any cluster on select
 
 (function applyEmbedMode() {
   const params = new URLSearchParams(window.location.search);
