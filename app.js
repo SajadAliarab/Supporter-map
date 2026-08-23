@@ -3,6 +3,8 @@ let infoWindow;
 let markers = [];
 let markerObjects = [];
 
+const DETAIL_ZOOM = 16; // fixed zoom used to break out of any cluster on select
+
 (function applyEmbedMode() {
   const params = new URLSearchParams(window.location.search);
   const embedParam = params.get("embed") === "1";
@@ -14,6 +16,7 @@ let markerObjects = [];
     document.body.classList.add("is-embedded");
   }
 })();
+
 window.initMap = async function initMap() {
   // 1) Create the map
   map = new google.maps.Map(document.getElementById("map"), {
@@ -30,106 +33,129 @@ window.initMap = async function initMap() {
   infoWindow = new google.maps.InfoWindow();
 
   // 2) Load marker data
-  const res = await fetch("./markers.json");
-  markers = await res.json();
+  try {
+    const res = await fetch("./markers.json");
+    if (!res.ok) throw new Error(`markers.json request failed: ${res.status}`);
+    markers = await res.json();
+  } catch (err) {
+    console.error("Failed to load markers.json:", err);
+    markers = [];
+    const el = document.getElementById("results");
+    if (el) {
+      el.innerHTML = `<div class="result">Sorry, the supporter groups list couldn't be loaded. Please try again later.</div>`;
+    }
+  }
 
   // 3) Create markers
   markerObjects = markers.map((m) => {
     const marker = new google.maps.Marker({
       position: { lat: m.lat, lng: m.lng },
       title: m.name,
-       icon: "./assets/marker.svg",
+      icon: "./assets/marker.svg",
     });
 
-    marker.addListener("click", () => {
-      infoWindow.setContent(makeInfoHtml(m));
-      infoWindow.open(map, marker);
-    });
+    marker.addListener("click", () => openGroupInfo(m, marker));
 
     return marker;
   });
 
   // 4) Cluster bubbles
-const clusterer = new markerClusterer.MarkerClusterer({
-  map,
-  markers: markerObjects,
-  renderer: {
-  render({ count, position }) {
-    // Bubble sizing similar to Google's default cluster bubbles
-    const size =
-      count < 10 ? 44 :
-      count < 100 ? 52 :
-      60;
+  new markerClusterer.MarkerClusterer({
+    map,
+    markers: markerObjects,
+    renderer: {
+      render({ count, position }) {
+        // Bubble sizing similar to Google's default cluster bubbles
+        const size =
+          count < 10 ? 44 :
+          count < 100 ? 52 :
+          60;
 
-    const fontSize =
-      count < 10 ? 16 :
-      count < 100 ? 16 :
-      15;
+        const fontSize =
+          count < 10 ? 16 :
+          count < 100 ? 16 :
+          15;
 
-    const stroke = "#164194";      // border + ring
-    const fill = "#FDFDFD";        // main background
-    const text = "#164194";        // number
+        const stroke = "#164194";      // border + ring
+        const fill = "#FDFDFD";        // main background
+        const text = "#164194";        // number
 
-    const rOuter = Math.floor(size / 2) - 2;   // outer radius
-    const rInner = Math.floor(size / 2) - 6;   // inner radius
+        const rOuter = Math.floor(size / 2) - 2;   // outer radius
+        const rInner = Math.floor(size / 2) - 6;   // inner radius
 
-    const svg = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
-        <defs>
-          <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.22"/>
-          </filter>
-          <radialGradient id="haloGrad" cx="35%" cy="35%">
-           <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
-            <stop offset="100%" stop-color="${fill}" stop-opacity="0.85"/>
-          </radialGradient>
-        </defs>
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+            <defs>
+              <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.22"/>
+              </filter>
+              <radialGradient id="haloGrad" cx="35%" cy="35%">
+               <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="${fill}" stop-opacity="0.85"/>
+              </radialGradient>
+            </defs>
 
-        <!-- Outer soft halo (gives 'bubble' feel) -->
-        <circle cx="${size/2}" cy="${size/2}" r="${rOuter}"
-          fill="${fill}" opacity="0.85" filter="url(#shadow)"/>
+            <!-- Outer soft halo (gives 'bubble' feel) -->
+            <circle cx="${size/2}" cy="${size/2}" r="${rOuter}"
+              fill="${fill}" opacity="0.85" filter="url(#shadow)"/>
 
-        <!-- Inner solid circle -->
-        <circle cx="${size/2}" cy="${size/2}" r="${rInner}"
-          fill="${fill}" stroke="${stroke}" stroke-width="3"/>
+            <!-- Inner solid circle -->
+            <circle cx="${size/2}" cy="${size/2}" r="${rInner}"
+              fill="${fill}" stroke="${stroke}" stroke-width="3"/>
 
-        <!-- Number -->
-        <text x="50%" y="50%"
-          text-anchor="middle"
-          dominant-baseline="central"
-          font-size="${fontSize}"
-          font-weight="800"
-          fill="${text}"
-          font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif">
-          ${count}
-        </text>
-      </svg>
-    `;
+            <!-- Number -->
+            <text x="50%" y="50%"
+              text-anchor="middle"
+              dominant-baseline="central"
+              font-size="${fontSize}"
+              font-weight="800"
+              fill="${text}"
+              font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif">
+              ${count}
+            </text>
+          </svg>
+        `;
 
-    // IMPORTANT: use encodeURIComponent (better than btoa for SVG text)
-    const url = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+        // IMPORTANT: use encodeURIComponent (better than btoa for SVG text)
+        const url = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
 
-    return new google.maps.Marker({
-      position,
-      icon: {
-        url,
-        scaledSize: new google.maps.Size(size, size),
-        anchor: new google.maps.Point(size / 2, size / 2),
+        return new google.maps.Marker({
+          position,
+          icon: {
+            url,
+            scaledSize: new google.maps.Size(size, size),
+            anchor: new google.maps.Point(size / 2, size / 2),
+          },
+          zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count,
+        });
       },
-      zIndex: Number(google.maps.Marker.MAX_ZINDEX) + count
-    });
-  }
-}
-
-});
-
+    },
+  });
 
   // 5) Search UI
   setupSearch();
   setupMobileSheet();
   renderResults(markers);
-
 };
+
+/**
+ * Opens the InfoWindow for a supporter group and, if requested, pans/zooms
+ * the map to it first. Anchoring to the LatLng (via setPosition) rather than
+ * the Marker object means the popup opens correctly even if the marker is
+ * currently swallowed inside a cluster bubble.
+ */
+function openGroupInfo(m, { pan = false } = {}) {
+  const pos = { lat: m.lat, lng: m.lng };
+
+  if (pan) {
+    map.panTo(pos);
+    map.setZoom(DETAIL_ZOOM);
+  }
+
+  infoWindow.setContent(makeInfoHtml(m));
+  infoWindow.setPosition(pos);
+  infoWindow.open(map);
+}
 
 function makeInfoHtml(m) {
   const btn = m.link
@@ -138,6 +164,9 @@ function makeInfoHtml(m) {
          padding:10px 12px;border-radius:6px">Find out more</a></div>`
     : "";
 
+  // NOTE: notesHtml is trusted content authored/reviewed by the club, not
+  // arbitrary user input. If this ever accepts third-party submissions
+  // directly, it must be sanitized before being injected here.
   return `
     <div style="max-width:320px; background-color:#F4F5F6; margin:-12px; overflow:hidden;">
       <div style="font-size:14px;line-height:1.4">${m.notesHtml || ""}</div>
@@ -149,17 +178,21 @@ function makeInfoHtml(m) {
 function setupSearch() {
   const input = document.getElementById("search");
   const clear = document.getElementById("clear");
+  let debounceTimer = null;
 
   input.addEventListener("input", () => {
-    const q = input.value.trim().toLowerCase();
-    const filtered = !q
-      ? markers
-      : markers.filter(m =>
-          (m.name || "").toLowerCase().includes(q) ||
-          (m.group || "").toLowerCase().includes(q) ||
-          (m.tags || []).join(",").toLowerCase().includes(q)
-        );
-    renderResults(filtered);
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      const q = input.value.trim().toLowerCase();
+      const filtered = !q
+        ? markers
+        : markers.filter(m =>
+            (m.name || "").toLowerCase().includes(q) ||
+            (m.group || "").toLowerCase().includes(q) ||
+            (m.tags || []).join(",").toLowerCase().includes(q)
+          );
+      renderResults(filtered);
+    }, 120);
   });
 
   clear.addEventListener("click", () => {
@@ -168,9 +201,10 @@ function setupSearch() {
     input.focus();
   });
 
-  // Set this to your real “Form a Club” page later:
+  // Set this to your real "Form a Club" page later:
   document.getElementById("formClub").href = "https://www.lcfc.com/";
 }
+
 function setupMobileSheet() {
   const sheet = document.getElementById("sheet");
   const toggle = document.getElementById("sheetToggle");
@@ -206,22 +240,13 @@ function renderResults(list) {
     `;
 
     row.addEventListener("click", () => {
-  const pos = { lat: m.lat, lng: m.lng };
-  map.panTo(pos);
-  map.setZoom(Math.max(map.getZoom(), 6));
+      openGroupInfo(m, { pan: true });
 
-  // Find the matching marker object and open its InfoWindow
-  const index = markers.indexOf(m);
-  if (index !== -1) {
-    infoWindow.setContent(makeInfoHtml(m));
-    infoWindow.open(map, markerObjects[index]);
-  }
-
-  // close sheet only after selection on mobile
-  if (window.matchMedia("(max-width: 768px)").matches) {
-    document.getElementById("sheet")?.classList.remove("is-open");
-  }
-});
+      // close sheet only after selection on mobile
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.getElementById("sheet")?.classList.remove("is-open");
+      }
+    });
 
     el.appendChild(row);
   });
@@ -229,7 +254,8 @@ function renderResults(list) {
 
 function escapeHtml(s) {
   return String(s ?? "").replace(/[&<>"']/g, c => (
-    { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
   ));
 }
-function escapeAttr(s){ return escapeHtml(s).replace(/"/g, "&quot;"); }
+
+const escapeAttr = escapeHtml; // kept as a separate name for call-site clarity
