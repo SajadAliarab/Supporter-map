@@ -61,5 +61,32 @@
     "link": "",
     "group": "",
     "tags": []
+},
+{
+    "name": "Fiege Foxes",
+    "lat": 51.48165,
+    "lng": 7.21648,
+    "notesHtml": "<div style=\"display: flex; align-items: center; background-color: #F4F5F6; padding: 24px 32px; gap: 20px; flex-wrap: wrap;\"> <div style=\"flex-shrink: 0;\"> <img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/Official%20Support%20Group%20-%20Condensed.png\" alt=\"Leicester City Crest\" style=\"width: 120px; object-fit: contain; display: block;\"> </div> <div style=\"display: flex; flex-direction: column; gap: 6px; font-family: 'Fira Sans', sans-serif; min-width: 200px; flex: 1;\"> <p style=\"margin: 0; font-size: 18px; font-weight: bold; color: #000000;\">Fiege Foxes</p> <p style=\"margin: 0; font-size: 18px; font-weight: 500; color: #000000;\">Bochum, Germany</p> <p style=\"margin: 0; font-size: 18px; color: #000000; word-break: break-word;\"> Jack Munton </p> <p style=\"margin: 0;\"> <a href=\"mailto:BochumLeicester@gmail.com\"><img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/Mail%20(1).png\" style=\"width: 30px; margin: 5px;\"></a> <a href=\"https://www.facebook.com/LeicesterAndBochum\"><img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/Facebook_pOCfrUi.png\" style=\"width: 30px; margin: 5px;\"></a> </p> </div> </div>",
+    "link": "",
+    "group": "",
+    "tags": []
+},
+{
+    "name": "Fox and Hounds pub",
+    "lat": 36.1408,
+    "lng": -5.3536,
+    "notesHtml": "<div style=\"display: flex; align-items: center; background-color: #F4F5F6; padding: 24px 32px; gap: 20px; flex-wrap: wrap;\"> <div style=\"flex-shrink: 0;\"> <img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/Official%20Support%20Group%20-%20Condensed.png\" alt=\"Leicester City Crest\" style=\"width: 120px; object-fit: contain; display: block;\"> </div> <div style=\"display: flex; flex-direction: column; gap: 6px; font-family: 'Fira Sans', sans-serif; min-width: 200px; flex: 1;\"> <p style=\"margin: 0; font-size: 18px; font-weight: bold; color: #000000;\">Fox and Hounds pub</p> <p style=\"margin: 0; font-size: 18px; font-weight: 500; color: #000000;\">Gibraltar, Gibraltar</p> <p style=\"margin: 0; font-size: 18px; color: #000000; word-break: break-word;\"> Benjamin Colburn </p> <p style=\"margin: 0; font-size: 18px; color: #000000;\"> <a href=\"https://foxandhounds.gi\" style=\"color: #000000; text-decoration: underline;\">www.foxandhounds.gi</a> </p> <p style=\"margin: 0;\"> <a href=\"mailto:info@foxandhounds.gi\"><img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/Mail%20(1).png\" style=\"width: 30px; margin: 5px;\"></a> <a href=\"tel:+35058008927\"><img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/Phone.png\" style=\"width: 30px; margin: 5px;\"></a> <a href=\"https://www.facebook.com/profile.php?id=61568387128918\"><img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/Facebook_pOCfrUi.png\" style=\"width: 30px; margin: 5px;\"></a> </p> </div> </div>",
+    "link": "",
+    "group": "",
+    "tags": []
+},
+{
+    "name": "Foxes Pride",
+    "lat": 52.6650,
+    "lng": -1.0850,
+    "notesHtml": "<div style=\"display: flex; align-items: center; background-color: #F4F5F6; padding: 24px 32px; gap: 20px; flex-wrap: wrap;\"> <div style=\"flex-shrink: 0;\"> <img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/Official%20Support%20Group%20-%20Condensed.png\" alt=\"Leicester City Crest\" style=\"width: 120px; object-fit: contain; display: block;\"> </div> <div style=\"display: flex; flex-direction: column; gap: 6px; font-family: 'Fira Sans', sans-serif; min-width: 200px; flex: 1;\"> <p style=\"margin: 0; font-size: 18px; font-weight: bold; color: #000000;\">Foxes Pride</p> <p style=\"margin: 0; font-size: 18px; font-weight: 500; color: #000000;\">Leicester, United Kingdom</p> <p style=\"margin: 0; font-size: 18px; color: #000000; word-break: break-word;\"> Mags Keatman </p> <p style=\"margin: 0; font-size: 18px; color: #000000;\"> <a href=\"https://foxespride.co.uk/\" style=\"color: #000000; text-decoration: underline;\">www.foxespride.co.uk</a> </p> <p style=\"margin: 0;\"> <a href=\"mailto:contact@foxespride.co.uk\"><img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/Mail%20(1).png\" style=\"width: 30px; margin: 5px;\"></a> <a href=\"http://www.facebook.com/FOXESPRIDE\"><img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/Facebook_pOCfrUi.png\" style=\"width: 30px; margin: 5px;\"></a> <a href=\"http://www.x.com/FOXESPRIDE\"><img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/X.png\" style=\"width: 30px; margin: 5px;\"></a> <a href=\"https://www.instagram.com/foxespride?igsh=YmpheWN6bzkwb2pl&amp;utm_source=qr\"><img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/Instagram.png\" style=\"width: 30px; margin: 5px;\"></a> </p> </div> </div>",
+    "link": "",
+    "group": "",
+    "tags": []
 }
 ]
