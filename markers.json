@@ -208,7 +208,7 @@
 },
 {
     "name": "Leicester for All",
-    "lat": 52.6244, -1.1421593119702906,
+    "lat": 52.6244, 
     "lng": -1.1421,
     "notesHtml": "<div style=\"display: flex; align-items: center; background-color: #F4F5F6; padding: 24px 32px; gap: 20px; flex-wrap: wrap;\"> <div style=\"flex-shrink: 0;\"> <img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/Official%20Support%20Group%20-%20Condensed.png\" alt=\"Leicester City Crest\" style=\"width: 120px; object-fit: contain; display: block;\"> </div> <div style=\"display: flex; flex-direction: column; gap: 6px; font-family: 'Fira Sans', sans-serif; min-width: 200px; flex: 1;\"> <p style=\"margin: 0; font-size: 18px; font-weight: bold; color: #000000;\">Leicester for All</p> <p style=\"margin: 0; font-size: 18px; font-weight: 500; color: #000000;\">Leicester, United Kingdom</p> <p style=\"margin: 0; font-size: 18px; color: #000000; word-break: break-word;\"> Terry Singh </p> <p style=\"margin: 0;\"> <a href=\"mailto:terrysingh69@outlook.com\"><img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/Mail%20(1).png\" style=\"width: 30px; margin: 5px;\"></a> <a href=\"tel:+447527986559\"><img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/Phone.png\" style=\"width: 30px; margin: 5px;\"></a> <a href=\"https://x.com/Lforall2022\"><img src=\"https://cmscdnus.yinzcam.com/Toolbox/jsoneditor/FA_LEI/X.png\" style=\"width: 30px; margin: 5px;\"></a> </p> </div> </div>",
     "link": "",
