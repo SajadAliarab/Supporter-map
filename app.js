@@ -202,7 +202,7 @@ function setupSearch() {
   });
 
   // Set this to your real "Form a Club" page later:
-  document.getElementById("formClub").href = "https://www.lcfc.com/";
+  document.getElementById("formClub").href = "https://lcfc.formstack.com/forms/supporters_club_registration";
 }
 
 function setupMobileSheet() {
